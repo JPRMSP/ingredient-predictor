@@ -1,37 +1,30 @@
 import streamlit as st
-import joblib
-import numpy as np
-
-# Load the trained model
-model = joblib.load("ingredient_model.pkl")
 
 # Function to set background image
 def set_bg_image():
     page_bg = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://images.app.goo.gl/qxHdf8r1V228C2nq5");
+        background-image: url("https://raw.githubusercontent.com/JPRMSP/ingredient-predictor/main/images(2).jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         background-attachment: fixed;
     }
-    
     [data-testid="stSidebar"], .block-container {
         background-color: rgba(255, 255, 255, 0.85);
         padding: 20px;
         border-radius: 10px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     }
-
-    /* Style buttons */
     .stButton>button {
         background-color: #ff6347;
         color: white;
         font-size: 16px;
         border-radius: 5px;
+        padding: 8px 15px;
+        border: none;
     }
-
-    /* Style text */
     .stMarkdown, .stText {
         color: #333;
         font-size: 18px;
@@ -40,28 +33,27 @@ def set_bg_image():
     """
     st.markdown(page_bg, unsafe_allow_html=True)
 
-# Apply background styling
+# Set the background image
 set_bg_image()
 
-# Add logo
-st.image("https://upload.wikimedia.org/wikipedia/commons/6/6a/Baking_icon.svg", width=120)
+# Display a logo (Replace with your own image URL)
+st.image("https://raw.githubusercontent.com/your-github-username/your-repo/main/logo.png", width=150)
 
-# App title
+# App Title
 st.title("🍽️ Precision Baking - AI Ingredient Measurement")
 
-# Description
-st.write("Enter the ingredient details below to get an accurate weight prediction.")
+# App Description
+st.write("Enter the ingredient details below to get accurate weight predictions.")
 
-# User input form
-with st.form("ingredient_form"):
-    ingredient = st.selectbox("Select Ingredient", ["Flour", "Sugar", "Milk", "Butter", "Eggs"])
-    volume = st.number_input("Enter Volume (ml)", min_value=1.0, step=1.0)
-    density = st.number_input("Enter Density (g/ml)", min_value=0.1, step=0.1)
+# Input fields
+ingredient = st.text_input("Ingredient Name", placeholder="e.g., Sugar")
+volume = st.number_input("Enter Volume (ml)", min_value=0.0, format="%.2f")
+density = st.number_input("Enter Density (g/ml)", min_value=0.0, format="%.2f")
 
-    # Submit button
-    submit_button = st.form_submit_button("Calculate Weight")
-
-# Predict weight
-if submit_button:
-    weight = model.predict(np.array([[volume, density]]))[0]  # Make prediction
-    st.success(f"Predicted Weight: **{weight:.2f} grams**")  # Display result
+# Prediction Button
+if st.button("Predict Weight"):
+    if volume > 0 and density > 0:
+        weight = volume * density
+        st.success(f"Estimated Weight: {weight:.2f} grams")
+    else:
+        st.error("Please enter valid values for volume and density.")
