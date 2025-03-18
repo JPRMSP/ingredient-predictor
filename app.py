@@ -10,7 +10,7 @@ def set_bg_image():
     page_bg = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://source.unsplash.com/1600x900/?food,kitchen");
+        background-image: url("https://images.app.goo.gl/qxHdf8r1V228C2nq5");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
