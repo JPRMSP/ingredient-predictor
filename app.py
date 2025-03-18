@@ -5,7 +5,7 @@ def set_bg_image():
     page_bg = """
     <style>
     [data-testid="stAppViewContainer"] {
-        background-image: url("https://raw.githubusercontent.com/JPRMSP/ingredient-predictor/main/images(2).jpg");
+        background-image: url("https://raw.githubusercontent.com/JPRMSP/ingredient-predictor/main/images.jpg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
